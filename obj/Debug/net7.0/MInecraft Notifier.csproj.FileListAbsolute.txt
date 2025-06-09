@@ -1,0 +1,26 @@
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\obj\Debug\net7.0\MInecraft Notifier.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\obj\Debug\net7.0\MInecraft Notifier.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\obj\Debug\net7.0\MInecraft Notifier.AssemblyInfoInputs.cache
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\obj\Debug\net7.0\MInecraft Notifier.AssemblyInfo.cs
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\obj\Debug\net7.0\MInecraft Notifier.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\MInecraft Notifier.exe
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\MInecraft Notifier.deps.json
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\MInecraft Notifier.runtimeconfig.json
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\MInecraft Notifier.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\MInecraft Notifier.pdb
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\System.Text.Encodings.Web.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\System.Text.Json.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\Telegram.Bot.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\bin\Debug\net7.0\runtimes\browser\lib\net7.0\System.Text.Encodings.Web.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\obj\Debug\net7.0\MInecraft Notifier.csproj.CopyComplete
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\obj\Debug\net7.0\MInecraft Notifier.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\obj\Debug\net7.0\refint\MInecraft Notifier.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\obj\Debug\net7.0\MInecraft Notifier.pdb
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\obj\Debug\net7.0\MInecraft Notifier.genruntimeconfig.cache
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\obj\Debug\net7.0\ref\MInecraft Notifier.dll

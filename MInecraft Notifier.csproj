@@ -9,11 +9,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.9" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.6" />
     <PackageReference Include="Telegram.Bot" Version="22.5.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  
+<ItemGroup>
+  <Content Include="Fonts\**\*">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+  <Content Include="Images\**\*">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+</ItemGroup>
+
+
 
 </Project>

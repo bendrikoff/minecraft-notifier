@@ -115,6 +115,52 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "SixLabors.Fonts/2.1.3": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/SixLabors.Fonts.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/SixLabors.Fonts.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SixLabors.ImageSharp/3.1.9": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/SixLabors.ImageSharp.props": {}
+        }
+      },
+      "SixLabors.ImageSharp.Drawing/2.1.6": {
+        "type": "package",
+        "dependencies": {
+          "SixLabors.Fonts": "2.1.3",
+          "SixLabors.ImageSharp": "3.1.8"
+        },
+        "compile": {
+          "lib/net6.0/SixLabors.ImageSharp.Drawing.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/SixLabors.ImageSharp.Drawing.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "System.Text.Encodings.Web/8.0.0": {
         "type": "package",
         "compile": {
@@ -386,6 +432,52 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "SixLabors.Fonts/2.1.3": {
+      "sha512": "ORWbZ5BHrC/LZvo+Y09MnoJq5VUKD85LsYALk+YI7CHFra+m5arCkz00IntDM6SrAiB22bvSdKtKmuCyHOKlqg==",
+      "type": "package",
+      "path": "sixlabors.fonts/2.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/SixLabors.Fonts.dll",
+        "lib/net6.0/SixLabors.Fonts.xml",
+        "sixlabors.fonts.128.png",
+        "sixlabors.fonts.2.1.3.nupkg.sha512",
+        "sixlabors.fonts.nuspec"
+      ]
+    },
+    "SixLabors.ImageSharp/3.1.9": {
+      "sha512": "8yY4Bcxgw5u7xLWFXb2mK4fbX+0JYJ7eyM19n0inj/cgcHAuIAge982Eiy8vTHT9Zow4HvKJaZKRFBhTNFqD4A==",
+      "type": "package",
+      "path": "sixlabors.imagesharp/3.1.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "build/SixLabors.ImageSharp.props",
+        "lib/net6.0/SixLabors.ImageSharp.dll",
+        "lib/net6.0/SixLabors.ImageSharp.xml",
+        "sixlabors.imagesharp.128.png",
+        "sixlabors.imagesharp.3.1.9.nupkg.sha512",
+        "sixlabors.imagesharp.nuspec"
+      ]
+    },
+    "SixLabors.ImageSharp.Drawing/2.1.6": {
+      "sha512": "/VeIBfAcaYcqqWMgVyF0nzdmWBkDQhppL8tltd8pFyUYanytCFnJG77bZYOGllk4LYLFdKduACvbpKGUpflp1w==",
+      "type": "package",
+      "path": "sixlabors.imagesharp.drawing/2.1.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/SixLabors.ImageSharp.Drawing.dll",
+        "lib/net6.0/SixLabors.ImageSharp.Drawing.xml",
+        "sixlabors.imagesharp.drawing.128.png",
+        "sixlabors.imagesharp.drawing.2.1.6.nupkg.sha512",
+        "sixlabors.imagesharp.drawing.nuspec"
+      ]
+    },
     "System.Text.Encodings.Web/8.0.0": {
       "sha512": "yev/k9GHAEGx2Rg3/tU6MQh4HGBXJs70y7j1LaM1i/ER9po+6nnQ6RRqTJn1E7Xu0fbIFK80Nh5EoODxrbxwBQ==",
       "type": "package",
@@ -516,6 +608,8 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "SixLabors.ImageSharp >= 3.1.9",
+      "SixLabors.ImageSharp.Drawing >= 2.1.6",
       "Telegram.Bot >= 22.5.1"
     ]
   },
@@ -558,6 +652,14 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
+          "SixLabors.ImageSharp": {
+            "target": "Package",
+            "version": "[3.1.9, )"
+          },
+          "SixLabors.ImageSharp.Drawing": {
+            "target": "Package",
+            "version": "[2.1.6, )"
+          },
           "Telegram.Bot": {
             "target": "Package",
             "version": "[22.5.1, )"
@@ -574,12 +676,30 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.15, 7.0.15]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[7.0.15, 7.0.15]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[7.0.15, 7.0.15]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[7.0.15, 7.0.15]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

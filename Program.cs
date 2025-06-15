@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using MInecraft_Notifier;
+using System.Text;
 using System.Threading;
 using System.Timers;
 using Telegram.Bot;
@@ -13,8 +14,7 @@ namespace Misha_s_bot
 {
     class Program
     {
-        private static string MinecraftServerIP = "ru1.apexnodes.xyz:24344"; //todo: вынести в enviroment
-
+        private static Dictionary<long, MinecraftHost> ChatIp = new();
         //Чаты с подпиской на заход человека
         private static List<long> _subscribeJoinChats = new();
 
@@ -26,6 +26,7 @@ namespace Misha_s_bot
 
 
         //todo: Добавить логгирование через Logger
+        //todo: Добавить catch ошибок и вывод пользователю(сервер недоступен, и т.д)
         // Создаем экземпляр TelegramBotClient, передавая токен бота
         static ITelegramBotClient botClient = new TelegramBotClient(Environment.GetEnvironmentVariable("BOT_TOKEN"));
 
@@ -65,54 +66,147 @@ namespace Misha_s_bot
 
             Console.WriteLine($"Чат: {chatId}.Получено сообщение от пользователя: {messageText}");
 
-            _lastStatus = await MinecraftServerMonitorSoket.GetMinecraftStatusAsync("ru1.apexnodes.xyz", 24344);
+            if (messageText.StartsWith("/setIp"))
+            {
+                try
+                {
+                    var host = ParseSetIpCommand(messageText);
+                    var status = await MinecraftServerMonitorSoket.GetMinecraftStatusAsync(host.ip, host.port);
+                    if(status == null)
+                    {
+                        throw new Exception("Сервер недоступен");
+                    }
+
+                    if (ChatIp.ContainsKey(chatId))
+                    {
+                        ChatIp[chatId] =  new MinecraftHost(host.ip, host.port);
+                    } else
+                    {
+                        ChatIp.Add(chatId, new MinecraftHost(host.ip, host.port));
+                    }
+                    botClient.SendMessage(chatId, "Ip успешно установлен");
+                }
+                catch (Exception ex)
+                {
+                    botClient.SendMessage(chatId, $"Не удалось установить ip для сервера.\n{ex.Message}");
+                }
+            }
+
 
             if (messageText == "/online")
             {
-                var status =_lastStatus;
-                var result = "";
-                if (status != null)
+                if (ChatIp.ContainsKey(chatId))
                 {
-                    result = $"Игроков онлайн: {status.players.online}/{status.players.max}";
+                    _lastStatus = await MinecraftServerMonitorSoket.GetMinecraftStatusAsync(ChatIp[chatId].Ip, ChatIp[chatId].Port);
 
-                    if (status.players.sample != null)
+                    var status = _lastStatus;
+                    var result = "";
+                    if (status != null)
                     {
-                        result+= "\nСписок игроков:";
-                        foreach (var player in status.players.sample)
-                            result += $"\n- {player.name}";
+                        result = $"Игроков онлайн: {status.players.online}/{status.players.max}";
+
+                        if (status.players.sample != null)
+                        {
+                            result += "\nСписок игроков:";
+                            foreach (var player in status.players.sample)
+                                result += $"\n- {player.name}";
+                        }
+                    }
+                    else
+                    {
+                        result = "Не удалось получить статус сервера.";
+                    }
+                    botClient.SendMessage(chatId, result);
+                }
+                else
+                {
+                    botClient.SendMessage(chatId, "Не установлен ip, установите с помощью команды \n \"/setIp  <ip:port>\" ");
+                }
+            }
+
+            if (messageText == "/status")
+            {
+                if (ChatIp.ContainsKey(chatId))
+                {
+                    _lastStatus = await MinecraftServerMonitorSoket.GetMinecraftStatusAsync(ChatIp[chatId].Ip, ChatIp[chatId].Port);
+
+                    var status = _lastStatus;
+                    var result = "";
+                    if (status != null)
+                    {
+
+                        var names = status.players.sample != null
+                            ? status.players.sample.Select(x => x.name)
+                            : new List<string>();
+
+                        var players = new List<(string Name, Stream HeadStream)>();
+
+                        var headTasks = names.Select(async name =>
+                        {
+                            var uuid = await MinecraftHeadFetcher.GetUUIDAsync(name);
+                            if (uuid == null)
+                            {
+                                Console.WriteLine($"Не удалось получить голову игрока: {name}");
+                                uuid = await MinecraftHeadFetcher.GetUUIDAsync("steve");
+                            };
+
+                            var head = await MinecraftHeadFetcher.GetHeadImageAsync(uuid);
+                            return (Name: name, Head: head);
+                        });
+
+                        var playerHeads = await Task.WhenAll(headTasks);
+
+                        // Пример: перебор и работа с результатами
+                        foreach (var player in playerHeads)
+                        {
+                            Console.WriteLine($"Игрок: {player.Name}, Голова получена: {player.Head != null}");
+                        }
+
+                        using var imageStream = await PlayerImageDrawer.DrawPlayerListAsync(playerHeads.ToList(), status.players.max);
+
+                        var image = InputFile.FromStream(imageStream);
+                        botClient.SendPhoto(chatId, image);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Не удалось получить статус сервера.");
                     }
                 }
                 else
                 {
-                    result = "Не удалось получить статус сервера.";
+                    botClient.SendMessage(chatId, "Не установлен ip, установите с помощью команды \n \"/setIp  <ip:port>\" ");
                 }
-                botClient.SendMessage(chatId, result);
-            }
 
-            //todo: вынести в метод и сделать отписку
-            if (messageText == "/subscribe join")
-            {
-                if (_subscribeJoinChats.Contains(chatId))
+                //todo: вынести в метод и сделать отписку
+                if (messageText == "/subscribe join")
                 {
-                    botClient.SendMessage(chatId, "Вы уже подписаны на заход человека");
+                    if (_subscribeJoinChats.Contains(chatId))
+                    {
+                        botClient.SendMessage(chatId, "Вы уже подписаны на заход человека");
+                    }
+                    else
+                    {
+                        _subscribeJoinChats.Add(chatId);
+                        botClient.SendMessage(chatId, "Вы успешно подписались на заход человека");
+                        PlayerJoined += player => botClient.SendMessage(chatId, $"Игрок ${player} зашел на сервер");
+                    }
                 }
-                else
-                {
-                    _subscribeJoinChats.Add(chatId);
-                    botClient.SendMessage(chatId, "Вы успешно подписались на заход человека");
-                    PlayerJoined += player => botClient.SendMessage(chatId, $"Игрок ${player} зашел на сервер");
-                }
-            }
 
-            /*await botClient.SendMessage(
-            chatId,
-            "Открыть Mini App",
-            replyMarkup: new InlineKeyboardMarkup(
-                InlineKeyboardButton.WithWebApp("Запуск", new WebAppInfo("https://v0-telegram-chat-analytics.vercel.app/"))
-            )
-            );*/
+                if (messageText == "/ipset")
+                {
+
+
+                }
+
+                /*await botClient.SendMessage(
+                chatId,
+                "Открыть Mini App",
+                replyMarkup: new InlineKeyboardMarkup(
+                    InlineKeyboardButton.WithWebApp("Запуск", new WebAppInfo("https://v0-telegram-chat-analytics.vercel.app/"))
+                )
+                );*/
+            }
         }
-
         // Обработка ошибок
         static Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
@@ -124,6 +218,20 @@ namespace Misha_s_bot
 
             Console.WriteLine(errorMessage);
             return Task.CompletedTask;
+        }
+
+        static (string ip, int port) ParseSetIpCommand(string message)
+        {
+            const string prefix = "/setIp ";
+            if (!message.StartsWith(prefix))
+                throw new ArgumentException("Сообщение должно начинаться с /setIp");
+
+            string addressPart = message.Substring(prefix.Length).Trim();
+            var parts = addressPart.Split(':');
+            if (parts.Length != 2 || !int.TryParse(parts[1], out int port))
+                throw new ArgumentException("Неверный формат IP:PORT");
+
+            return (parts[0], port);
         }
     }
 }

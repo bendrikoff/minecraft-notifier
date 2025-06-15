@@ -1,0 +1,18 @@
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\MInecraft Notifier.exe
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\MInecraft Notifier.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\MInecraft Notifier.deps.json
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\MInecraft Notifier.runtimeconfig.json
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\MInecraft Notifier.pdb
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\Microsoft.Extensions.Options.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\Microsoft.Extensions.Primitives.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\SixLabors.Fonts.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\SixLabors.ImageSharp.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\SixLabors.ImageSharp.Drawing.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\System.Text.Encodings.Web.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\System.Text.Json.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\Telegram.Bot.dll
+C:\Users\admin\source\repos\MInecraft Notifier\MInecraft Notifier\publish\runtimes\browser\lib\net7.0\System.Text.Encodings.Web.dll
